@@ -1,5 +1,5 @@
 {
-  "name": "Airbnb Price Prediction ML",
+  "name": "Airbnb Price Prediction ML (GPU Enabled)",
   "image": "nvcr.io/nvidia/pytorch:24.07-py3",
   "workspaceFolder": "/workspace",
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
@@ -29,6 +29,7 @@
   },
 
   "runArgs": [
+    "--gpus=all",
     "--ipc=host",
     "--shm-size=8g"
   ],
@@ -41,7 +42,7 @@
 
   "remoteUser": "root",
 
-  "postCreateCommand": "bash -c 'pip install --no-cache-dir -r installation/docker-amd64-cuda/requirements.txt && pip install -e . && echo \"✅ Environment ready! Note: GPU support disabled for compatibility. Models will run on CPU.\"'",
+  "postCreateCommand": "bash -c 'pip install --no-cache-dir -r installation/docker-amd64-cuda/requirements.txt && pip install -e . && echo \"✅ Environment ready with GPU support!\"'",
 
   "features": {
     "ghcr.io/devcontainers/features/git:1": {}
