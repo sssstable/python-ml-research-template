@@ -1,8 +1,8 @@
 {
   "name": "Airbnb Price Prediction ML",
-  "dockerComposeFile": ["../installation/docker-amd64-cuda/compose.yaml"],
-  "service": "dev-local-cuda",
-  "workspaceFolder": "/home/user/python-ml-research-template",
+  "image": "nvcr.io/nvidia/pytorch:24.07-py3",
+  "workspaceFolder": "/workspace",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
 
   "customizations": {
     "vscode": {
@@ -34,9 +34,15 @@
     "--shm-size=8g"
   ],
 
+  "containerEnv": {
+    "PROJECT_ROOT_AT": "/workspace",
+    "PROJECT_NAME": "python-ml-research-template",
+    "PACKAGE_NAME": "template_package_name"
+  },
+
   "remoteUser": "root",
 
-  "postCreateCommand": "pip install -e . && jupyter lab build",
+  "postCreateCommand": "bash -c 'pip install --no-cache-dir -r installation/docker-amd64-cuda/requirements.txt && pip install -e . && echo \"✅ Environment ready!\"'",
 
   "features": {
     "ghcr.io/devcontainers/features/git:1": {}
